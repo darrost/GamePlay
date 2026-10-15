@@ -1,0 +1,11 @@
+/* Column layout so the footer sticks to the bottom on short pages */
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-shell main {
+    flex: 1;
+    width: 100%;
+}
