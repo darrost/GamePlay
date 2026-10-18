@@ -1,15 +1,23 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import { useAuth } from '../../hooks/useAuth';
 import './Layout.css';
-
-// Layout route: header and footer stay mounted while <Outlet /> swaps the page.
 export default function Layout() {
+    const { isLoading, error } = useAuth();
+
     return (
         <div className="app-shell">
             <Header />
             <main>
-                <Outlet />
+                {isLoading ? (
+                    <p role="status">Checking your session…</p>
+                ) : (
+                    <>
+                        {error && <p role="alert">{error}</p>}
+                        <Outlet />
+                    </>
+                )}
             </main>
             <Footer />
         </div>

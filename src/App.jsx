@@ -12,7 +12,6 @@ import NotFound from './pages/not-found/NotFound';
 function App() {
     return (
         <Routes>
-            {/* Every child route renders inside Layout's <Outlet /> */}
             <Route element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="games" element={<Games />} />

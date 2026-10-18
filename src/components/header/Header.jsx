@@ -1,7 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
 import './Header.css';
-
-// NavLink adds an "active" class to the link that matches the current URL.
 const navClass = ({ isActive }) => (isActive ? 'nav-link active' : 'nav-link');
 
 export default function Header() {
