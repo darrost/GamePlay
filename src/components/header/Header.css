@@ -59,3 +59,33 @@
 .nav-cta:focus-visible {
     background-color: #4f46e5;
 }
+
+.nav-list {
+    align-items: center;
+}
+
+.nav-user {
+    max-width: min(280px, 70vw);
+    padding: 8px 14px;
+    font-size: 0.875rem;
+    color: #cbd5e1;
+    overflow-wrap: anywhere;
+}
+
+.nav-logout {
+    border: 1px solid #64748b;
+    background: transparent;
+    cursor: pointer;
+}
+
+.nav-logout:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.header-error {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 16px;
+    color: #fca5a5;
+}
