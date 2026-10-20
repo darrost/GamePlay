@@ -1,0 +1,15 @@
+.game-cover {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #1f2937;
+}
+
+.game-cover-fallback {
+    display: grid;
+    place-items: center;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 24px;
+}
