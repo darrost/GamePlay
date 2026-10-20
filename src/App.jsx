@@ -5,6 +5,7 @@ import Layout from './components/layout/Layout';
 import GuestOnlyRoute from './components/guards/GuestOnlyRoute';
 import PrivateRoute from './components/guards/PrivateRoute';
 import CreateGame from './pages/create-game/CreateGame';
+import EditGame from './pages/edit-game/EditGame';
 import Home from './pages/home/Home';
 import Games from './pages/games/Games';
 import GameDetails from './pages/game-details/GameDetails';
@@ -21,6 +22,7 @@ function App() {
                 <Route path="games/:gameId" element={<GameDetails />} />
                 <Route element={<PrivateRoute />}>
                     <Route path="games/create" element={<CreateGame />} />
+                    <Route path="games/:gameId/edit" element={<EditGame />} />
                 </Route>
                 <Route element={<GuestOnlyRoute />}>
                     <Route path="login" element={<Login />} />

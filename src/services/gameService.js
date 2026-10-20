@@ -40,3 +40,21 @@ export async function getGame(gameId, { signal } = {}) {
     if (error) throw error;
     return data;
 }
+
+export async function updateGame(gameId, values, ownerId) {
+    if (!isValidGameId(gameId) || !isValidGameId(ownerId)) {
+        throw new Error('The game could not be updated. Check the game address and your session.');
+    }
+
+    const { data, error } = await supabase
+        .from('games')
+        .update(toGamePayload(values))
+        .eq('id', gameId)
+        .eq('owner_id', ownerId)
+        .select('id, title')
+        .maybeSingle();
+
+    if (error) throw error;
+    if (!data) throw new Error('The game was not updated. It may have been removed, or you no longer have permission to edit it.');
+    return data;
+}

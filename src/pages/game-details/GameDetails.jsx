@@ -1,11 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import GameCover from '../../components/game-cover/GameCover';
+import { useAuth } from '../../hooks/useAuth';
 import { useGame } from '../../hooks/useGame';
 import { formatReleaseDate, getPlatformLabel } from '../../utils/gamePresentation';
 import './GameDetails.css';
 
 export default function GameDetails() {
     const { gameId } = useParams();
+    const { user } = useAuth();
     const { game, status, retry } = useGame(gameId);
 
     return (
@@ -33,6 +35,9 @@ export default function GameDetails() {
             ) : (
                 <>
                     <h1 id="game-details-heading">{game.title}</h1>
+                    {user?.id === game.owner_id && (
+                        <Link className="game-details-edit" to={`/games/${game.id}/edit`}>Edit game</Link>
+                    )}
                     <div className="game-details-overview">
                         <div className="game-details-image"><GameCover src={game.image_url} title={game.title} eager /></div>
                         <dl className="game-details-facts">
