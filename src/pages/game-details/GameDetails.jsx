@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import GameOwnerActions from '../../components/game-owner-actions/GameOwnerActions';
 import GameCover from '../../components/game-cover/GameCover';
 import { useAuth } from '../../hooks/useAuth';
 import { useGame } from '../../hooks/useGame';
@@ -36,7 +37,7 @@ export default function GameDetails() {
                 <>
                     <h1 id="game-details-heading">{game.title}</h1>
                     {user?.id === game.owner_id && (
-                        <Link className="game-details-edit" to={`/games/${game.id}/edit`}>Edit game</Link>
+                        <GameOwnerActions key={`${game.id}:${user.id}`} game={game} userId={user.id} />
                     )}
                     <div className="game-details-overview">
                         <div className="game-details-image"><GameCover src={game.image_url} title={game.title} eager /></div>

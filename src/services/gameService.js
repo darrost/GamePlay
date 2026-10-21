@@ -58,3 +58,21 @@ export async function updateGame(gameId, values, ownerId) {
     if (!data) throw new Error('The game was not updated. It may have been removed, or you no longer have permission to edit it.');
     return data;
 }
+
+export async function deleteGame(gameId, ownerId) {
+    if (!isValidGameId(gameId) || !isValidGameId(ownerId)) {
+        throw new Error('The game could not be deleted. Check the game address and your session.');
+    }
+
+    const { data, error } = await supabase
+        .from('games')
+        .delete()
+        .eq('id', gameId)
+        .eq('owner_id', ownerId)
+        .select('id')
+        .maybeSingle();
+
+    if (error) throw error;
+    if (!data) throw new Error('No game was deleted. It may have been removed, or you no longer have permission to delete it.');
+    return data;
+}

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import GameCard from '../../components/game-card/GameCard';
 import { useGames } from '../../hooks/useGames';
 import { useAuth } from '../../hooks/useAuth';
@@ -7,6 +7,7 @@ import './Games.css';
 export default function Games() {
     const { games, status, retry } = useGames();
     const { user } = useAuth();
+    const { state } = useLocation();
 
     return (
         <section className="games-page" aria-labelledby="games-heading">
@@ -18,6 +19,7 @@ export default function Games() {
                 {user && <Link className="games-add" to="/games/create">Add a game</Link>}
             </div>
 
+            {state?.deletedGameTitle && <p className="games-message" role="status">{state.deletedGameTitle} was deleted.</p>}
             {status === 'loading' && <p className="games-message" role="status">Loading games…</p>}
             {status === 'error' && (
                 <div className="games-message">

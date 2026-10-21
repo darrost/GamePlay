@@ -1,0 +1,64 @@
+.game-owner-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.game-owner-actions button {
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid #64748b;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.game-owner-actions .game-delete-button {
+    border-color: #f87171;
+    background: #7f1d1d;
+    color: #fff;
+}
+
+.game-owner-actions .game-delete-button:hover:not(:disabled) {
+    background: #991b1b;
+}
+
+.game-delete-dialog {
+    width: min(480px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+    padding: 24px;
+    border: 1px solid #64748b;
+    border-radius: 10px;
+    background: #1f2937;
+    color: #f9fafb;
+    overflow-wrap: anywhere;
+}
+
+.game-delete-dialog::backdrop {
+    background: rgb(0 0 0 / 70%);
+}
+
+.game-delete-dialog h2 {
+    margin-top: 0;
+}
+
+.game-delete-dialog p {
+    line-height: 1.6;
+}
+
+.game-delete-cancel {
+    background: #374151;
+    color: #fff;
+}
+
+.game-owner-actions button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.game-delete-error {
+    color: #fca5a5;
+}
