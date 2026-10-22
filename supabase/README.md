@@ -28,7 +28,7 @@ Applying this file in SQL Editor does not record it in the Supabase CLI migratio
 | `owner_id` | Defaults to the signed-in user's ID and references `auth.users` |
 | `created_at` | Defaults to the database's current time |
 
-Supported platforms are PC, PlayStation, Xbox, Nintendo Switch, macOS, Linux, iOS, Android, and Other. Platform names must match these values exactly. A future form will offer these as selectable options. The database does not currently reject duplicate platforms; the form should send unique selections.
+Supported platforms are PC, PlayStation, Xbox, Nintendo Switch, macOS, Linux, iOS, Android, and Other. Platform names must match these values exactly. The creation and editing forms offer these as selectable options. The database does not currently reject duplicate platforms; the form should send unique selections.
 
 The URL rule checks the address's basic shape. It does not check that the destination exists or serves an image. React should provide a fallback when a cover cannot load.
 
@@ -63,6 +63,18 @@ Expected results:
 
 These checks verify configuration, not behavior with actual user requests. SQL Editor normally runs with administrator privileges and therefore does not reproduce ordinary guest or signed-in access. Once the forms exist, verify through the application with a guest and two different user accounts: public reads work, creators can create/edit/delete, and other users cannot modify their records.
 
-## Next application step
+## Personal library
 
-The React catalog remains a placeholder until it queries `public.games`. Add the Create Game form next, protect its route with PrivateRoute, and implement catalog and details queries with loading, error, and empty states. The table starts empty; this migration does not insert sample games.
+The catalog and game CRUD are connected to Supabase. The personal library uses a separate `public.library_entries` table to connect an account to a game without copying the game record.
+
+After the games migration has been applied, run the complete contents of `supabase/migrations/20261022000100_create_library.sql` once in SQL Editor. Do not rerun the games migration. The library migration adds a new table and does not replace existing catalog records.
+
+The three columns are `user_id` (defaults to `auth.uid()`), `game_id`, and `saved_at` (defaults to `now()`). The composite primary key `(user_id, game_id)` prevents duplicate saves for the same account. Different accounts can save the same game independently, including games created by someone else.
+
+Authenticated clients may select and delete their own library entries and insert only the `game_id` column. The database supplies the account ID and time. RLS restricts SELECT, INSERT, and DELETE to `auth.uid() = user_id`; guests have no table privileges and there is no UPDATE permission. Saving and removing are separate operations. Removing an entry leaves the public game intact.
+
+Foreign keys use `ON DELETE CASCADE`: deleting a game removes its saved-list references; deleting an Auth user removes that user's library entries. This does not change the existing games-owner foreign key behavior.
+
+Run `supabase/check_library.sql` to inspect the columns, RLS, three policies, grants, primary key, and two cascading foreign keys. Expect authenticated SELECT/DELETE table grants, INSERT on `game_id` only, and no guest or UPDATE grants. These are configuration checks; SQL Editor normally bypasses ordinary RLS as an administrator.
+
+Verify through the app using two accounts: save a game, refresh, open My Library, remove it, and check the catalog still contains it. Account B should start with its own empty library, can save the same game independently, and must not see account A's saved list. A guest visiting `/library` should be redirected to login. Use a disposable catalog game to test cascading deletion if needed.

@@ -42,6 +42,7 @@ export default function Header() {
                         <li><NavLink to="/games" className={navClass}>Games</NavLink></li>
                         {!isLoading && (user ? (
                             <>
+                                <li><NavLink to="/library" className={navClass}>My Library</NavLink></li>
                                 <li><NavLink to="/games/create" className={navClass}>Add Game</NavLink></li>
                                 <li className="nav-user">Signed in as {user.email}</li>
                                 <li><button type="button" className="nav-link nav-logout" onClick={handleLogout}

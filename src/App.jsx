@@ -9,6 +9,7 @@ import EditGame from './pages/edit-game/EditGame';
 import Home from './pages/home/Home';
 import Games from './pages/games/Games';
 import GameDetails from './pages/game-details/GameDetails';
+import Library from './pages/library/Library';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import NotFound from './pages/not-found/NotFound';
@@ -21,6 +22,7 @@ function App() {
                 <Route path="games" element={<Games />} />
                 <Route path="games/:gameId" element={<GameDetails />} />
                 <Route element={<PrivateRoute />}>
+                    <Route path="library" element={<Library />} />
                     <Route path="games/create" element={<CreateGame />} />
                     <Route path="games/:gameId/edit" element={<EditGame />} />
                 </Route>

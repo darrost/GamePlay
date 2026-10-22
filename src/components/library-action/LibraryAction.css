@@ -1,0 +1,32 @@
+.library-action {
+    margin-top: 16px;
+}
+
+.library-action button {
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid #818cf8;
+    border-radius: 6px;
+    background: #312e81;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.library-action button:hover:not(:disabled) {
+    background: #3730a3;
+}
+
+.library-action button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.library-action p {
+    margin: 12px 0 0;
+    overflow-wrap: anywhere;
+}
+
+.library-action-error {
+    color: #fca5a5;
+}
