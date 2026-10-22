@@ -41,6 +41,7 @@ export default function Register() {
             const { data, error } = await supabase.auth.signUp({
                 email: values.email.trim(),
                 password: values.password,
+                options: { emailRedirectTo: new URL('/games', window.location.origin).href },
             });
 
             if (error) throw error;
