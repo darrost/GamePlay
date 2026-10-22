@@ -8,8 +8,8 @@
 .game-owner-actions button {
     min-height: 44px;
     padding: 10px 18px;
-    border: 1px solid #64748b;
-    border-radius: 6px;
+    border: 1px solid var(--border-strong);
+    border-radius: 3px;
     font: inherit;
     font-weight: 600;
     cursor: pointer;
@@ -30,10 +30,10 @@
     max-height: calc(100dvh - 32px);
     overflow: auto;
     padding: 24px;
-    border: 1px solid #64748b;
-    border-radius: 10px;
-    background: #1f2937;
-    color: #f9fafb;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    background: var(--surface-raised);
+    color: var(--text);
     overflow-wrap: anywhere;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .game-delete-cancel {
-    background: #374151;
+    background: var(--border);
     color: #fff;
 }
 
@@ -60,5 +60,5 @@
 }
 
 .game-delete-error {
-    color: #fca5a5;
+    color: var(--danger);
 }

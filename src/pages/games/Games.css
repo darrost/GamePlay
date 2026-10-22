@@ -7,17 +7,17 @@
 }
 
 .games-page a {
-    color: #a5b4fc;
+    color: var(--cyan);
 }
 
 .games-heading-row .games-add,
 .games-message button {
     display: inline-block;
     border: 0;
-    border-radius: 6px;
+    border-radius: 3px;
     padding: 12px 20px;
-    background: #4f46e5;
-    color: #fff;
+    background: var(--cyan);
+    color: var(--cyan-ink);
     text-decoration: none;
     font-weight: 600;
     cursor: pointer;
@@ -25,11 +25,11 @@
 
 .games-heading-row .games-add:hover,
 .games-message button:hover {
-    background: #4338ca;
+    background: var(--cyan-hover);
 }
 
 .games-page :focus-visible {
-    outline: 3px solid #a5b4fc;
+    outline: 3px solid var(--cyan);
     outline-offset: 3px;
 }
 
@@ -45,14 +45,14 @@
 }
 
 .games-page .game-card-link {
-    color: #f9fafb;
+    color: var(--text);
 }
 
 .games-message {
     margin-top: 32px;
     padding: 24px;
-    border: 1px solid #374151;
-    border-radius: 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
     overflow-wrap: anywhere;
 }
 
@@ -67,4 +67,22 @@
 
 .games-message a {
     display: inline-block;
+}
+
+.games-heading-row h1::after {
+    content: ' //';
+    color: var(--magenta);
+    letter-spacing: -0.12em;
+}
+
+.games-count {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 28px;
+    margin-bottom: 24px;
+}
+
+.games-heading-row .games-add,
+.games-message button {
+    min-height: 48px;
 }

@@ -38,12 +38,14 @@ export default function GameDetails() {
             ) : (
                 <>
                     <h1 id="game-details-heading">{game.title}</h1>
+                    <div className="game-details-actions">
                     {user?.id === game.owner_id && (
                         <GameOwnerActions key={`owner:${game.id}:${user.id}`} game={game} userId={user.id} />
                     )}
                     {user ? (
                         <LibraryAction key={`library:${game.id}:${user.id}`} gameId={game.id} userId={user.id} />
                     ) : <p><Link to="/login">Log in</Link> to save this game to your library.</p>}
+                    </div>
                     <div className="game-details-overview">
                         <div className="game-details-image"><GameCover src={game.image_url} title={game.title} eager /></div>
                         <dl className="game-details-facts">

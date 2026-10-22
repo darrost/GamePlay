@@ -1,17 +1,70 @@
-  * {
+* {
     box-sizing: border-box;
-  }
+}
 
-  body {
+:root {
+    color-scheme: dark;
+    --bg: #070c14;
+    --surface: #0e1725;
+    --surface-raised: #142033;
+    --border: #28384d;
+    --border-strong: #48617a;
+    --text: #f4f8fc;
+    --muted: #b4c3d5;
+    --cyan: #35e8f4;
+    --cyan-hover: #84f5fc;
+    --cyan-ink: #03151d;
+    --magenta: #f55cbd;
+    --danger: #ff9b9e;
+    --success: #70e7b6;
+    --heading-font: 'Bahnschrift', 'Arial Black', 'Segoe UI', sans-serif;
+}
+
+body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #111827;
-    color: #f9fafb;
-  }
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
 
-  button,
-  input,
-  textarea,
-  select {
+button,
+input,
+textarea,
+select {
     font: inherit;
-  }
+}
+
+button,
+a,
+input,
+textarea,
+select {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: var(--cyan);
+    text-underline-offset: 4px;
+}
+
+a:hover {
+    color: var(--cyan-hover);
+}
+
+:focus-visible {
+    outline: 3px solid var(--cyan);
+    outline-offset: 4px;
+}
+
+::selection {
+    background: var(--cyan);
+    color: var(--cyan-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

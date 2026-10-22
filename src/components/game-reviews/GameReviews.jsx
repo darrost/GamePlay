@@ -58,8 +58,19 @@ export default function GameReviews({ gameId, gameTitle, userId }) {
 
     function cancelEditing() {
         setIsEditing(false);
-        editButtonRef.current?.focus();
+        requestAnimationFrame(() => editButtonRef.current?.focus());
     }
+
+    const ownReviewIsVisible = ownReview && reviews.some((review) => review.id === ownReview.id);
+    const ownActions = (
+        <div className="review-actions">
+            <button type="button" ref={editButtonRef} onClick={() => setIsEditing(true)}>Edit your review</button>
+            <button type="button" className="review-danger" onClick={() => {
+                setDeleteError('');
+                setIsConfirming(true);
+            }}>Delete your review</button>
+        </div>
+    );
 
     const totalPages = Math.max(1, Math.ceil(count / REVIEW_PAGE_SIZE));
 
@@ -82,8 +93,8 @@ export default function GameReviews({ gameId, gameTitle, userId }) {
                             : 'No ratings yet. Be the first to review this game.'}
                     </p>
                     {userId ? (ownReview ? (
-                        <div className="review-panel">
-                            <h3>Your review</h3>
+                        (isEditing || !ownReviewIsVisible) && <div className="review-panel">
+                            {!isEditing && <h3>Your review</h3>}
                             {isEditing ? (
                                 <div ref={editingRef}>
                                     <ReviewForm key={ownReview.id} initialValues={ownReview} editing onSave={handleSave} onCancel={cancelEditing} />
@@ -92,13 +103,7 @@ export default function GameReviews({ gameId, gameTitle, userId }) {
                                 <>
                                     <p>{ownReview.rating} / 5 stars</p>
                                     <p className="review-body">{ownReview.body}</p>
-                                    <div className="review-actions">
-                                        <button type="button" ref={editButtonRef} onClick={() => setIsEditing(true)}>Edit your review</button>
-                                        <button type="button" className="review-danger" onClick={() => {
-                                            setDeleteError('');
-                                            setIsConfirming(true);
-                                        }}>Delete your review</button>
-                                    </div>
+                                    {ownActions}
                                 </>
                             )}
                         </div>
@@ -107,10 +112,10 @@ export default function GameReviews({ gameId, gameTitle, userId }) {
                     )}
                     {reviews.length > 0 ? (
                         <ul className="review-list" aria-label="Community reviews">
-                            {reviews.map((review) => (
+                            {reviews.filter((review) => !isEditing || review.id !== ownReview?.id).map((review) => (
                                 <li key={review.id} className="review-panel">
                                     <div className="review-byline">
-                                        <strong>{review.user_id === userId ? 'You' : 'Community member'}</strong>
+                                        <strong>{review.user_id === userId ? 'Your review' : 'Community member'}</strong>
                                         <time dateTime={review.created_at}>{new Intl.DateTimeFormat('en-GB', {
                                             day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
                                         }).format(new Date(review.created_at))}</time>
@@ -119,6 +124,7 @@ export default function GameReviews({ gameId, gameTitle, userId }) {
                                         <span aria-hidden="true">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
                                     </p>
                                     <p className="review-body">{review.body}</p>
+                                    {review.user_id === userId && ownActions}
                                 </li>
                             ))}
                         </ul>

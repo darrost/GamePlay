@@ -5,16 +5,16 @@
 .library-action button {
     min-height: 44px;
     padding: 10px 18px;
-    border: 1px solid #818cf8;
-    border-radius: 6px;
-    background: #312e81;
-    color: #fff;
+    border: 1px solid var(--cyan);
+    border-radius: 3px;
+    background: var(--cyan);
+    color: var(--cyan-ink);
     font-weight: 600;
     cursor: pointer;
 }
 
 .library-action button:hover:not(:disabled) {
-    background: #3730a3;
+    background: var(--cyan-hover);
 }
 
 .library-action button:disabled {
@@ -28,5 +28,5 @@
 }
 
 .library-action-error {
-    color: #fca5a5;
+    color: var(--danger);
 }
