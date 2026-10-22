@@ -78,3 +78,21 @@ Foreign keys use `ON DELETE CASCADE`: deleting a game removes its saved-list ref
 Run `supabase/check_library.sql` to inspect the columns, RLS, three policies, grants, primary key, and two cascading foreign keys. Expect authenticated SELECT/DELETE table grants, INSERT on `game_id` only, and no guest or UPDATE grants. These are configuration checks; SQL Editor normally bypasses ordinary RLS as an administrator.
 
 Verify through the app using two accounts: save a game, refresh, open My Library, remove it, and check the catalog still contains it. Account B should start with its own empty library, can save the same game independently, and must not see account A's saved list. A guest visiting `/library` should be redirected to login. Use a disposable catalog game to test cascading deletion if needed.
+
+## Reviews and ratings
+
+Apply `supabase/migrations/20261022000200_create_reviews.sql` once in SQL Editor, after the games table exists. It creates `reviews` and the `game_review_stats` view without replacing games or library entries. Do not rerun earlier migrations.
+
+Reviews have six columns: generated `id`, `game_id`, authenticated `user_id`, whole-star `rating` from 1 to 5, `body` of 1–2000 trimmed characters after the short-review migration, and database-generated `created_at`. A unique `(game_id, user_id)` constraint allows one review per account per game. Both foreign keys cascade on deletion. Catalog creators can review entries too: catalog ownership does not make them the game's developer or give them control of other users' reviews.
+
+Reviews are publicly readable. Authenticated clients may insert only `game_id`, `rating`, and `body`, update only `rating` and `body`, and delete their own reviews. RLS uses `auth.uid() = user_id` for writes. Guests cannot write. Account email addresses are not queried or displayed; public reviews are labelled Community member or You for the signed-in author.
+
+The `game_review_stats` view calculates review count and average rating across all reviews for a game. It uses `security_invoker = true` and SELECT-only grants to respect the underlying table's permissions. The interface loads five reviews per page, plus the signed-in user's own review separately. Statistics are not calculated from only the currently visible page.
+
+Run `supabase/check_reviews.sql` to inspect six columns, RLS, four policies, grants, constraints, and the view's security-invoker option. These inspect configuration, not user-level behavior. Test through the app with a guest and two accounts: create, refresh, edit, cancel/confirm deletion, check average changes, and ensure each author can manage only their own review. A saved-library relationship or ownership of a game does not grant review ownership.
+
+### Short reviews
+
+After the reviews migration, run `migrations/20261022000300_allow_short_reviews.sql`
+in the SQL Editor. This changes the review length to 1–2,000 trimmed characters
+and preserves existing reviews, ratings, and ownership policies.

@@ -1,3 +1,4 @@
+import { attachGameRatings } from './gameRatingService';
 import { supabase } from '../lib/supabaseClient';
 import { isValidGameId } from '../utils/gamePresentation';
 
@@ -18,7 +19,9 @@ export async function getLibrary(userId, { signal } = {}) {
         .abortSignal(signal);
 
     if (error) throw error;
-    return (data ?? []).filter((entry) => entry.game !== null);
+    const entries = (data ?? []).filter((entry) => entry.game !== null);
+    const games = await attachGameRatings(entries.map((entry) => entry.game), { signal });
+    return entries.map((entry, index) => ({ ...entry, game: games[index] }));
 }
 
 export async function isGameSaved(gameId, userId, { signal } = {}) {

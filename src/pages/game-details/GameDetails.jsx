@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import GameOwnerActions from '../../components/game-owner-actions/GameOwnerActions';
 import LibraryAction from '../../components/library-action/LibraryAction';
+import GameReviews from '../../components/game-reviews/GameReviews';
 import GameCover from '../../components/game-cover/GameCover';
 import { useAuth } from '../../hooks/useAuth';
 import { useGame } from '../../hooks/useGame';
@@ -55,6 +56,7 @@ export default function GameDetails() {
                         <h2 id="game-description-heading">About this game</h2>
                         <p>{game.description}</p>
                     </section>
+                    <GameReviews key={`reviews:${game.id}:${user?.id ?? 'guest'}`} gameId={game.id} gameTitle={game.title} userId={user?.id} />
                 </>
             ))}
         </section>

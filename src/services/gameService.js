@@ -1,3 +1,4 @@
+import { attachGameRatings } from './gameRatingService';
 import { supabase } from '../lib/supabaseClient';
 import { toGamePayload } from '../utils/gameValidation';
 import { isValidGameId } from '../utils/gamePresentation';
@@ -24,7 +25,7 @@ export async function getGames({ signal } = {}) {
         .abortSignal(signal);
 
     if (error) throw error;
-    return data ?? [];
+    return attachGameRatings(data ?? [], { signal });
 }
 
 export async function getGame(gameId, { signal } = {}) {
