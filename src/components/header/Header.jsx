@@ -73,7 +73,7 @@ export default function Header() {
                         ) : (
                             <>
                                 <li><NavLink to="/login" className={navClass} onClick={() => setIsMenuOpen(false)}>Login</NavLink></li>
-                                <li><NavLink to="/register" className="nav-link nav-cta" onClick={() => setIsMenuOpen(false)}>Register <span aria-hidden="true">↗</span></NavLink></li>
+                                <li><NavLink to="/register" className="nav-link nav-cta" onClick={() => setIsMenuOpen(false)}>Register <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10" /></svg></NavLink></li>
                             </>
                         ))}
                     </ul>

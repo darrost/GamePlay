@@ -16,7 +16,7 @@ export default function Home() {
                     <h1 id="home-heading">Discover your<br /><span>next adventure.</span></h1>
                     <p>Explore games, read community reviews, and keep your favorites in one place.</p>
                     <div className="home-hero-actions">
-                        <Link className="button-primary" to="/games">Browse games <span aria-hidden="true">↗</span></Link>
+                        <Link className="button-primary" to="/games">Browse games <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10" /></svg></Link>
                         <Link className="button-secondary" to={user ? '/library' : '/register'}>{user ? 'My library' : 'Join the community'}</Link>
                     </div>
                 </div>
