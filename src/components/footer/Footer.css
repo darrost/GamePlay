@@ -37,7 +37,9 @@
 }
 
 .footer-right a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
     padding: 12px 0;
     font-size: 0.875rem;
     text-decoration: none;
